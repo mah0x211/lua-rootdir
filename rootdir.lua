@@ -72,9 +72,9 @@ function RootDir:init( cfg )
     elseif cfg.followSymlinks ~= nil and
            not typeof.boolean( cfg.followSymlinks ) then
         error( 'cfg.followSymlinks must be boolean' );
-    elseif cfg.ignore ~= nil and
-           not typeof.table( cfg.ignore ) then
-        error( 'cfg.ignore must be table' );
+    elseif cfg.ignoreRegex ~= nil and
+           not typeof.table( cfg.ignoreRegex ) then
+        error( 'cfg.ignoreRegex must be table' );
     elseif cfg.mimetypes ~= nil and
            not typeof.string( cfg.mimetypes ) then
         error( 'cfg.mimetypes must be string' );
@@ -102,18 +102,20 @@ function RootDir:init( cfg )
     end
     own.rootdir = rootdir;
     
-    -- set ignore list
-    if ignore then
-        for i = 1, #ignore do
-            if not typeof.string( ignore[i] ) then
-                error( ('cfg.ignore#%d pattern must be string'):format( i ) );
+    -- set ignoreRegex list
+    if cfg.ignoreRegex then
+        for i = 1, #cfg.ignoreRegex do
+            if not typeof.string( cfg.ignoreRegex[i] ) then
+                error( ('cfg.ignoreRegex#%d pattern must be string'):format( i ) );
             end
-            ignorePattern[#ignorePattern + 1] = ignore[i];
+            ignorePattern[#ignorePattern + 1] = cfg.ignoreRegex[i];
         end
     end
     -- compile patterns
-    ignorePattern = '(?:' .. concat( ignorePattern, '|' ) .. ')';
-    own.ignore = lrex.new( ignorePattern, 'i' );
+    own.ignoreRegex = lrex.new(
+        '(?:' .. concat( ignorePattern, '|' ) .. ')',
+        'i'
+    );
     
     -- create mediatypes
     own.mime = MediaTypes.new( cfg.mimetypes );
@@ -191,7 +193,7 @@ function RootDir:readdir( rpath )
         -- list up
         for i = 1, #entries do
             -- not ignoring files
-            if not own.ignore:match( entries[i] ) then
+            if not own.ignoreRegex:match( entries[i] ) then
                 entry = entries[i];
                 info, err = self:stat( normalize( dirpath, entry ) );
                 -- error: stat
