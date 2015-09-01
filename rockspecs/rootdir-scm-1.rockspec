@@ -14,7 +14,7 @@ dependencies = {
     "halo >= 1.1.7",
     "lrexlib-pcre >= 2.8.0",
     "magic >= 1.0.0",
-    "mediatypes",
+    "mediatypes >= 1.0.0",
     "path >= 1.0.4",
     "process >= 1.4.2",
     "util >= 1.4.1"
