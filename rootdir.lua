@@ -115,8 +115,8 @@ function RootDir:init( cfg )
     ignorePattern = '(?:' .. concat( ignorePattern, '|' ) .. ')';
     own.ignore = lrex.new( ignorePattern, 'i' );
     
-    -- set mime extmap
-    own.mime = MediaTypes.new();
+    -- create mediatypes
+    own.mime = MediaTypes.new( cfg.mimetypes );
     
     return self;
 end
