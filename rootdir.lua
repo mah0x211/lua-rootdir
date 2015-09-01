@@ -76,7 +76,7 @@ function RootDir:init( cfg )
            not typeof.table( cfg.ignore ) then
         error( 'cfg.ignore must be table' );
     elseif cfg.mimetypes ~= nil and
-           not typeof.table( cfg.mimetypes ) then
+           not typeof.string( cfg.mimetypes ) then
         error( 'cfg.mimetypes must be string' );
     end
     
