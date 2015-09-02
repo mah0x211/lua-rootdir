@@ -163,7 +163,7 @@ end
 
 
 function RootDir:realpath( rpath )
-    return normalize( protected( self ).rootdir, rpath );
+    return protected( self ).rootdir .. normalize( rpath );
 end
 
 
