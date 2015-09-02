@@ -131,8 +131,12 @@ function RootDir:stat( rpath )
     
     if err then
         return nil, ('failed to stat: %s - %s'):format( rpath, err );
+    end
+    
+    -- convert relative-path to absolute-path
+    rpath = normalize( '/', rpath );
     -- regular file
-    elseif info.type == 'reg' then
+    if info.type == 'reg' then
         local ext = extname( rpath );
         
         return {
