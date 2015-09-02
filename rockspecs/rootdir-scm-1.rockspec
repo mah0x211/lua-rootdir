@@ -4,7 +4,7 @@ source = {
     url = "git://github.com/mah0x211/lua-rootdir.git"
 }
 description = {
-    summary = "",
+    summary = "fixed directory access module",
     homepage = "https://github.com/mah0x211/lua-rootdir",
     license = "MIT/X11",
     maintainer = "Masatoshi Teruya"
