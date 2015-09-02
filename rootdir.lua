@@ -134,7 +134,7 @@ function RootDir:stat( rpath )
     end
     
     -- convert relative-path to absolute-path
-    rpath = normalize( '/', rpath );
+    rpath = normalize( rpath );
     -- regular file
     if info.type == 'reg' then
         local ext = extname( rpath );
