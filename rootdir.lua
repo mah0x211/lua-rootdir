@@ -126,15 +126,15 @@ end
 
 function RootDir:stat( rpath )
     local own = protected( self );
-    local pathname = normalize( own.rootdir, rpath );
-    local info, err = stat( pathname, own.followSymlinks );
+    local pathname, info, err;
     
+    -- convert relative-path to absolute-path
+    pathname, rpath = self:realpath( rpath );
+    info, err = stat( pathname, own.followSymlinks );
     if err then
         return nil, ('failed to stat: %s - %s'):format( rpath, err );
     end
     
-    -- convert relative-path to absolute-path
-    rpath = normalize( rpath );
     -- regular file
     if info.type == 'reg' then
         local ext = extname( rpath );
@@ -163,12 +163,14 @@ end
 
 
 function RootDir:realpath( rpath )
-    return protected( self ).rootdir .. normalize( rpath );
+    rpath = normalize( rpath );
+    return protected( self ).rootdir .. rpath, rpath;
 end
 
 
 function RootDir:read( rpath )
-    local fh, err = io.open( self:realpath( rpath ) );
+    local pathname = self:realpath( rpath );
+    local fh, err = io.open( pathname );
     local src;
     
     if err then
@@ -187,8 +189,8 @@ end
 
 function RootDir:readdir( rpath )
     local own = protected( self );
-    local dirpath = normalize( rpath );
-    local entries, err = readdir( self:realpath( dirpath ) );
+    local pathname, dirpath = self:realpath( rpath );
+    local entries, err = readdir( pathname );
     
     if not err then
         local result = {};
