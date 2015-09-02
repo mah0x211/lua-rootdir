@@ -168,9 +168,13 @@ function RootDir:realpath( rpath )
 end
 
 
+function RootDir:open( rpath )
+    return io.open( ({self:realpath( rpath )})[1] );
+end
+
+
 function RootDir:read( rpath )
-    local pathname = self:realpath( rpath );
-    local fh, err = io.open( pathname );
+    local fh, err = self:open( rpath );
     local src;
     
     if err then
