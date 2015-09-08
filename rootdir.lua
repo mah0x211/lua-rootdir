@@ -143,6 +143,7 @@ function RootDir:stat( rpath )
             ['type'] = info.type,
             pathname = pathname,
             rpath = rpath,
+            size = info.size,
             ctime = info.ctime,
             mtime = info.mtime,
             ext = ext,
