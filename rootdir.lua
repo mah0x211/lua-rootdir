@@ -91,12 +91,12 @@ function RootDir:init( cfg )
     );
     -- set rootdir
     if err then
-        error( 'cfg.rootdir: %s' .. err );
+        error( ('cfg.rootdir: %q - %s'):format( cfg.rootdir, err ) );
     end
     -- stat
     info, err = stat( rootdir );
     if err then
-        error( 'cfg.rootdir: %s' .. err );
+        error( ('cfg.rootdir: %q - %s'):format( cfg.rootdir, err ) );
     elseif info.type ~= 'dir' then
         error( ('cfg.rootdir: %q is not directory'):format( own.rootdir ) );
     end
