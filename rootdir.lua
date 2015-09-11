@@ -81,7 +81,7 @@ function RootDir:init( cfg )
     end
     
     -- set follow symlinks option
-    own.followSymlinks = followSymlinks == true;
+    own.followSymlinks = cfg.followSymlinks == true;
     
     -- change relative-path to absolute-path
     rootdir, err = exists(
