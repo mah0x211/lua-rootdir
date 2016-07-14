@@ -11,7 +11,6 @@ description = {
 }
 dependencies = {
     "lua >= 5.1",
-    "halo >= 1.1.7",
     "lrexlib-pcre >= 2.8.0",
     "magic >= 5.25",
     "mediatypes >= 1.0.0",
