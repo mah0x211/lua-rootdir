@@ -186,6 +186,8 @@ local function new( cfg )
     elseif cfg.mimetypes ~= nil and
            not typeof.string( cfg.mimetypes ) then
         error( 'cfg.mimetypes must be string' );
+    elseif type( cfg.rootdir ) ~= 'string' then
+        error( 'cfg.rootdir must be string' );
     end
 
     -- set follow symlinks option
@@ -200,7 +202,10 @@ local function new( cfg )
     -- set rootdir
     if err then
         error( ('cfg.rootdir: %q - %s'):format( cfg.rootdir, err ) );
+    elseif not rootdir then
+        error( ('cfg.rootdir %q not found'):format( cfg.rootdir ) );
     end
+
     -- stat
     info, err = stat( rootdir );
     if err then
