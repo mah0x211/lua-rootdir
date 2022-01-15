@@ -1,6 +1,8 @@
 lua-rootdir
 ==
 
+**MODULE HAS BEEN RENAMED TO https://github.com/mah0x211/lua-basedir**
+
 fixed directory access module.
 
 
